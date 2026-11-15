@@ -223,27 +223,62 @@
     <section id="lab" class="block">
       <h2 class="h"><span class="h-tag">04</span> ssh homelab</h2>
       <p class="lede">A small production environment I run at home, managed as code. I design the architecture, direct AI coding agents to build it, review every change, and operate it day to day.</p>
-      <div class="lab">
-        <pre class="diagram" aria-label="Homelab architecture diagram" tabindex="0">
-              <span class="c-dim">internet</span>
-                 │
-     ┌───────────┴───────────┐
- <span class="c-mag">cloudflare tunnel</span>      <span class="c-mag">tailscale</span> <span class="c-dim">(private)</span>
-     └───────────┬───────────┘
-            <span class="c-cyan">[ caddy ]</span>  <span class="c-dim">reverse proxy · auto-HTTPS</span>
-                 │
- ┌──────┬────────┼────────┬──────────┐
- <span class="c-green">dns</span>    <span class="c-green">hub</span>      <span class="c-green">psa</span>      <span class="c-green">vault</span>     <span class="c-green">apps</span>
- adguard forgejo itflow  vaultwarden chorecast
-         beszel
-         gatus ──► <span class="c-yellow">ntfy alerts</span>
-
- <span class="c-dim">── proxmox VE · one service per VM ──</span>
- <span class="c-dim">── ansible: baseline · packages · compose-sync ──</span></pre>
-        <ul class="stack" aria-label="Homelab stack">
-          <li>Proxmox VE</li><li>Ansible</li><li>Docker Compose</li><li>Caddy</li><li>Tailscale</li><li>Cloudflare Tunnel</li><li>AdGuard Home</li><li>Forgejo</li><li>Vaultwarden</li><li>ITFlow (PSA)</li><li>Gatus</li><li>ntfy</li><li>Beszel</li>
-        </ul>
-      </div>
+      <figure class="topo" aria-label="Homelab architecture">
+        <div class="topo-edge">
+          <div class="tnode"><img class="tn-icon" src="assets/icons/cloudflare.svg" alt=""><div><b>Cloudflare</b><span>DNS · Pages · Tunnel · Access · email routing</span></div></div>
+          <div class="tnode"><img class="tn-icon mono" src="assets/icons/tailscale.svg" alt=""><div><b>Tailscale</b><span>private WireGuard mesh for my own devices</span></div></div>
+        </div>
+        <div class="topo-wires" aria-hidden="true">
+          <span class="wire w-pub"><span class="wire-lbl">tunnel · public PSA only</span></span>
+          <span class="wire w-priv"><span class="wire-lbl">private · everything else</span></span>
+        </div>
+        <div class="topo-zone">
+          <span class="zone-label">home lab</span>
+          <div class="topo-host">
+            <div class="host-head"><img class="tn-icon" src="assets/icons/proxmox.svg" alt=""><b>Proxmox VE</b><span>a VM per role · managed as code</span></div>
+            <div class="vms">
+              <div class="vm front"><h4>dns</h4><p><img class="ti" src="assets/icons/adguard.svg" alt="">AdGuard Home</p><small>names → Caddy · ad blocking</small></div>
+              <div class="vm front"><h4>proxy</h4><p><img class="ti" src="assets/icons/caddy.svg" alt="">Caddy</p><small>*.buenaobra.net · auto-HTTPS</small></div>
+              <div class="vm"><h4>hub</h4><p><img class="ti" src="assets/icons/forgejo.svg" alt="">Forgejo</p><p><img class="ti" src="assets/icons/ansible.svg" alt="">Ansible</p><p><img class="ti" src="assets/icons/gatus.svg" alt="">Gatus</p><p><img class="ti" src="assets/icons/ntfy.svg" alt="">ntfy</p><p><img class="ti" src="assets/icons/beszel.svg" alt="">Beszel</p></div>
+              <div class="vm"><h4>vault</h4><p><img class="ti mono" src="assets/icons/vaultwarden.svg" alt="">Vaultwarden</p><small>passwords</small></div>
+              <div class="vm"><h4>psa</h4><p><img class="ti mono" src="assets/icons/itflow.svg" alt="">ITFlow</p><p><img class="ti" src="assets/icons/cloudflare.svg" alt="">cloudflared</p><small>tickets · behind Access</small></div>
+              <div class="vm"><h4>apps</h4><p><img class="ti mono" src="assets/icons/chorecast.svg" alt="">ChoreCast</p><small>my own app</small></div>
+            </div>
+          </div>
+          <div class="topo-host desk">
+            <div class="host-head"><img class="tn-icon" src="assets/icons/windows.svg" alt=""><b>Desktop</b><span>Windows · media</span></div>
+            <div class="vms">
+              <div class="vm"><h4>media</h4><p><img class="ti" src="assets/icons/jellyfin.svg" alt="">Jellyfin</p><p><img class="ti" src="assets/icons/navidrome.svg" alt="">Navidrome</p></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>
+          <ol class="flows">
+            <li class="fl f-priv"><span class="flow-name">remote access</span><span class="fs"><img class="ti mono" src="assets/icons/phone.svg" alt="">my phone</span><span class="fa">→</span><span class="fs"><img class="ti mono" src="assets/icons/tailscale.svg" alt="">Tailscale</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/caddy.svg" alt="">Caddy</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/jellyfin.svg" alt="">apps</span></li>
+            <li class="fl f-pub"><span class="flow-name">public PSA</span><span class="fs"><img class="ti mono" src="assets/icons/visitor.svg" alt="">client</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/cloudflare.svg" alt="">Tunnel + Access</span><span class="fa">→</span><span class="fs"><img class="ti mono" src="assets/icons/itflow.svg" alt="">ITFlow</span></li>
+            <li class="fl f-alert"><span class="flow-name">alerts</span><span class="fs"><img class="ti" src="assets/icons/gatus.svg" alt="">Gatus · Beszel · Proxmox</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/ntfy.svg" alt="">ntfy</span><span class="fa">→</span><span class="fs"><img class="ti mono" src="assets/icons/phone.svg" alt="">my phone</span></li>
+            <li class="fl f-code"><span class="flow-name">as code</span><span class="fs"><img class="ti" src="assets/icons/forgejo.svg" alt="">Forgejo</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/ansible.svg" alt="">Ansible</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/docker.svg" alt="">Compose on every VM</span></li>
+            <li class="fl f-site"><span class="flow-name">this site</span><span class="fs"><img class="ti mono" src="assets/icons/visitor.svg" alt="">you</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/cloudflare.svg" alt="">Cloudflare Pages</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+      <ul class="stack" aria-label="Homelab stack">
+        <li><img class="ti" src="assets/icons/proxmox.svg" alt="">Proxmox VE</li>
+        <li><img class="ti" src="assets/icons/ansible.svg" alt="">Ansible</li>
+        <li><img class="ti" src="assets/icons/docker.svg" alt="">Docker Compose</li>
+        <li><img class="ti" src="assets/icons/caddy.svg" alt="">Caddy</li>
+        <li><img class="ti mono" src="assets/icons/tailscale.svg" alt="">Tailscale</li>
+        <li><img class="ti" src="assets/icons/cloudflare.svg" alt="">Cloudflare Tunnel &amp; Access</li>
+        <li><img class="ti" src="assets/icons/adguard.svg" alt="">AdGuard Home</li>
+        <li><img class="ti" src="assets/icons/forgejo.svg" alt="">Forgejo</li>
+        <li><img class="ti mono" src="assets/icons/vaultwarden.svg" alt="">Vaultwarden</li>
+        <li><img class="ti mono" src="assets/icons/itflow.svg" alt="">ITFlow (PSA)</li>
+        <li><img class="ti" src="assets/icons/gatus.svg" alt="">Gatus</li>
+        <li><img class="ti" src="assets/icons/ntfy.svg" alt="">ntfy</li>
+        <li><img class="ti" src="assets/icons/beszel.svg" alt="">Beszel</li>
+        <li><img class="ti" src="assets/icons/jellyfin.svg" alt="">Jellyfin</li>
+        <li><img class="ti" src="assets/icons/navidrome.svg" alt="">Navidrome</li>
+      </ul>
 
       <h3 class="sub">// side projects</h3>
       <div class="projects">
@@ -272,25 +307,151 @@
         <div class="tier">
           <h3><span class="badge b-strong">STRONG</span> used every day</h3>
           <ul class="tags-list">
-            <li>Microsoft 365</li><li>Exchange Online</li><li>Entra ID</li><li>Active Directory</li><li>Group Policy</li><li>Email security: Mimecast, AppRiver, SPF/DKIM/DMARC</li><li>Windows</li><li>macOS</li><li>ServiceNow</li><li>Jira Service Management</li><li>Autotask</li><li>Kaseya VSA</li><li>Datto RMM</li><li>LogicMonitor</li><li>IT Glue &amp; SOP writing</li><li>Onboarding / offboarding at scale</li>
+            <li><img class="ti" src="assets/icons/m365.svg" alt="">Microsoft 365</li>
+            <li><img class="ti" src="assets/icons/outlook.svg" alt="">Outlook</li>
+            <li><img class="ti" src="assets/icons/teams.svg" alt="">Teams</li>
+            <li><img class="ti" src="assets/icons/sharepoint.svg" alt="">SharePoint</li>
+            <li><img class="ti" src="assets/icons/onedrive.svg" alt="">OneDrive</li>
+            <li><img class="ti mono" src="assets/icons/exchange.svg" alt="">Exchange Online</li>
+            <li><img class="ti" src="assets/icons/entra.svg" alt="">Entra ID</li>
+            <li><img class="ti mono" src="assets/icons/ad.svg" alt="">Active Directory</li>
+            <li><img class="ti mono" src="assets/icons/gpo.svg" alt="">Group Policy</li>
+            <li><img class="ti mono" src="assets/icons/mimecast.svg" alt="">Mimecast</li>
+            <li><img class="ti mono" src="assets/icons/appriver.svg" alt="">AppRiver</li>
+            <li><img class="ti mono" src="assets/icons/emailauth.svg" alt="">SPF / DKIM / DMARC</li>
+            <li><img class="ti" src="assets/icons/windows.svg" alt="">Windows</li>
+            <li><img class="ti mono" src="assets/icons/apple.svg" alt="">macOS</li>
+            <li><img class="ti" src="assets/icons/servicenow.svg" alt="">ServiceNow</li>
+            <li><img class="ti" src="assets/icons/jira.svg" alt="">Jira Service Management</li>
+            <li><img class="ti" src="assets/icons/slack.svg" alt="">Slack</li>
+            <li><img class="ti mono" src="assets/icons/autotask.svg" alt="">Autotask PSA</li>
+            <li><img class="ti mono" src="assets/icons/kaseya.svg" alt="">Kaseya VSA</li>
+            <li><img class="ti mono" src="assets/icons/datto.svg" alt="">Datto RMM</li>
+            <li><img class="ti mono" src="assets/icons/logicmonitor.svg" alt="">LogicMonitor</li>
+            <li><img class="ti mono" src="assets/icons/itglue.svg" alt="">IT Glue &amp; SOP writing</li>
+            <li><img class="ti mono" src="assets/icons/onboarding.svg" alt="">Onboarding / offboarding at scale</li>
           </ul>
         </div>
         <div class="tier">
           <h3><span class="badge b-working">WORKING</span> hands-on, homelab-proven</h3>
           <ul class="tags-list">
-            <li>Intune &amp; Autopilot</li><li>Linux</li><li>Docker / Compose</li><li>Proxmox</li><li>Caddy</li><li>DNS</li><li>Google Workspace</li><li>Ubiquiti / Ruckus</li><li>VMware · Citrix · Hyper-V · AVD</li>
+            <li><img class="ti mono" src="assets/icons/intune.svg" alt="">Intune &amp; Autopilot</li>
+            <li><img class="ti" src="assets/icons/linux.svg" alt="">Linux</li>
+            <li><img class="ti" src="assets/icons/docker.svg" alt="">Docker / Compose</li>
+            <li><img class="ti" src="assets/icons/proxmox.svg" alt="">Proxmox</li>
+            <li><img class="ti" src="assets/icons/caddy.svg" alt="">Caddy</li>
+            <li><img class="ti mono" src="assets/icons/dns.svg" alt="">DNS</li>
+            <li><img class="ti" src="assets/icons/cloudflare.svg" alt="">Cloudflare: DNS, Pages, Tunnel, Access</li>
+            <li><img class="ti" src="assets/icons/gworkspace.svg" alt="">Google Workspace</li>
+            <li><img class="ti mono" src="assets/icons/ubiquiti.svg" alt="">Ubiquiti / Ruckus</li>
+            <li><span class="ti-group"><img class="ti mono" src="assets/icons/vmware.svg" alt=""><img class="ti mono" src="assets/icons/citrix.svg" alt=""><img class="ti" src="assets/icons/hyperv.svg" alt=""></span>VMware · Citrix · Hyper-V · AVD</li>
           </ul>
         </div>
         <div class="tier">
           <h3><span class="badge b-learning">LEARNING</span> leveling up now</h3>
           <ul class="tags-list">
-            <li>PowerShell scripting</li><li>Networking</li><li>Ansible</li><li>Azure administration</li>
+            <li><img class="ti mono" src="assets/icons/powershell.svg" alt="">PowerShell scripting</li>
+            <li><img class="ti mono" src="assets/icons/network.svg" alt="">Networking</li>
+            <li><img class="ti mono" src="assets/icons/ansible.svg" alt="">Ansible</li>
+            <li><img class="ti" src="assets/icons/azure.svg" alt="">Azure administration</li>
           </ul>
         </div>
         <div class="tier">
           <h3><span class="badge b-people">PEOPLE</span> the part that's hard to teach</h3>
           <ul class="tags-list">
-            <li>Active listening</li><li>Teaching &amp; training</li><li>Knowledge-base writing</li><li>Team leadership (20)</li><li>Calm with upset users</li><li>99 WPM</li>
+            <li><img class="ti mono" src="assets/icons/ear.svg" alt="">Active listening</li>
+            <li><img class="ti mono" src="assets/icons/teach.svg" alt="">Teaching &amp; training</li>
+            <li><img class="ti mono" src="assets/icons/kb.svg" alt="">Knowledge-base writing</li>
+            <li><img class="ti mono" src="assets/icons/team.svg" alt="">Team leadership (20)</li>
+            <li><img class="ti mono" src="assets/icons/calm.svg" alt="">Calm with upset users</li>
+            <li><img class="ti mono" src="assets/icons/keyboard.svg" alt="">99 WPM</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub">// toolbox: also worked with</h3>
+      <div class="toolbox">
+        <div class="tbox">
+          <h4>identity &amp; access</h4>
+          <ul class="tags-list">
+            <li><img class="ti mono" src="assets/icons/okta.svg" alt="">Okta</li>
+            <li><img class="ti mono" src="assets/icons/duo.svg" alt="">Duo MFA</li>
+            <li><img class="ti mono" src="assets/icons/cyberark.svg" alt="">CyberArk</li>
+            <li><img class="ti" src="assets/icons/entra.svg" alt="">Entra Connect</li>
+            <li><img class="ti mono" src="assets/icons/1password.svg" alt="">1Password</li>
+            <li><img class="ti mono" src="assets/icons/lastpass.svg" alt="">LastPass</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>endpoint security</h4>
+          <ul class="tags-list">
+            <li><img class="ti" src="assets/icons/defender.svg" alt="">Microsoft Defender for Endpoint</li>
+            <li><img class="ti mono" src="assets/icons/sentinelone.svg" alt="">SentinelOne</li>
+            <li><img class="ti" src="assets/icons/crowdstrike.svg" alt="">CrowdStrike</li>
+            <li><img class="ti mono" src="assets/icons/aurora.svg" alt="">Aurora Endpoint Defense (Cylance)</li>
+            <li><img class="ti mono" src="assets/icons/webroot.svg" alt="">Webroot</li>
+            <li><img class="ti mono" src="assets/icons/bitlocker.svg" alt="">BitLocker</li>
+            <li><img class="ti mono" src="assets/icons/usecure.svg" alt="">usecure awareness training</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>email security</h4>
+          <ul class="tags-list">
+            <li><img class="ti mono" src="assets/icons/proofpoint.svg" alt="">Proofpoint quarantine</li>
+            <li><img class="ti mono" src="assets/icons/avanan.svg" alt="">Avanan</li>
+            <li><img class="ti mono" src="assets/icons/barracuda.svg" alt="">Barracuda</li>
+            <li><img class="ti" src="assets/icons/defender.svg" alt="">Defender for Office 365</li>
+            <li><img class="ti mono" src="assets/icons/msgtrace.svg" alt="">Exchange message trace</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>remote support</h4>
+          <ul class="tags-list">
+            <li><img class="ti mono" src="assets/icons/teamviewer.svg" alt="">TeamViewer</li>
+            <li><img class="ti mono" src="assets/icons/anydesk.svg" alt="">AnyDesk</li>
+            <li><img class="ti mono" src="assets/icons/splashtop.svg" alt="">Splashtop</li>
+            <li><img class="ti mono" src="assets/icons/beyondtrust.svg" alt="">BeyondTrust (Bomgar)</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>devices &amp; endpoints</h4>
+          <ul class="tags-list">
+            <li><img class="ti mono" src="assets/icons/jamf.svg" alt="">Jamf</li>
+            <li><img class="ti mono" src="assets/icons/apple.svg" alt="">Apple Business Manager</li>
+            <li><img class="ti mono" src="assets/icons/sccm.svg" alt="">SCCM / MECM</li>
+            <li><img class="ti mono" src="assets/icons/w365.svg" alt="">Windows 365 Cloud PC</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>network &amp; VPN</h4>
+          <ul class="tags-list">
+            <li><img class="ti mono" src="assets/icons/meraki.svg" alt="">Cisco Meraki</li>
+            <li><img class="ti" src="assets/icons/fortinet.svg" alt="">FortiGate</li>
+            <li><img class="ti mono" src="assets/icons/sonicwall.svg" alt="">SonicWall</li>
+            <li><img class="ti mono" src="assets/icons/paloalto.svg" alt="">GlobalProtect VPN</li>
+            <li><img class="ti mono" src="assets/icons/pfsense.svg" alt="">pfSense</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>backup &amp; monitoring</h4>
+          <ul class="tags-list">
+            <li><img class="ti mono" src="assets/icons/backup.svg" alt="">Datto BCDR</li>
+            <li><img class="ti mono" src="assets/icons/veeam.svg" alt="">Veeam</li>
+            <li><img class="ti mono" src="assets/icons/acronis.svg" alt="">Acronis</li>
+            <li><img class="ti mono" src="assets/icons/prtg.svg" alt="">PRTG</li>
+          </ul>
+        </div>
+        <div class="tbox">
+          <h4>collaboration &amp; business apps</h4>
+          <ul class="tags-list">
+            <li><img class="ti" src="assets/icons/confluence.svg" alt="">Confluence</li>
+            <li><img class="ti" src="assets/icons/zoom.svg" alt="">Zoom</li>
+            <li><img class="ti mono" src="assets/icons/webex.svg" alt="">Webex</li>
+            <li><img class="ti mono" src="assets/icons/ringcentral.svg" alt="">RingCentral</li>
+            <li><img class="ti mono" src="assets/icons/docusign.svg" alt="">DocuSign</li>
+            <li><img class="ti" src="assets/icons/acrobat.svg" alt="">Adobe Admin Console</li>
+            <li><img class="ti" src="assets/icons/dropbox.svg" alt="">Dropbox</li>
+            <li><img class="ti mono" src="assets/icons/box.svg" alt="">Box</li>
           </ul>
         </div>
       </div>
@@ -334,6 +495,7 @@
   <footer class="foot">
     <p><span class="c-mag">Mabuhay!</span> 🇵🇭 · Designed by Lester, built with an AI pair · hosted on Cloudflare Pages</p>
     <p class="c-dim">© 2026 Mark Lester Buenaobra · psst: press <kbd>`</kbd> or tap <span class="c-cyan">&gt;_</span> to open the terminal</p>
+    <p class="c-dim foot-credits">Icons: <a href="https://selfh.st/icons/">selfh.st</a> &amp; <a href="https://coreui.io/icons/">CoreUI</a> (CC BY 4.0), Simple Icons, SVG Logos, Devicon, Material Design Icons, Lucide. Logos belong to their owners.</p>
   </footer>
 
   <!-- Easter-egg terminal -->
