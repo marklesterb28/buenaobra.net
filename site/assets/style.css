@@ -305,6 +305,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 .ti { width: 16px; height: 16px; flex: none; display: block; }
 .ti-group { display: inline-flex; gap: 3px; flex: none; }
 :root[data-mode="plain"] .ti.mono { filter: brightness(0) opacity(.7); }
+.ti.ink { filter: invert(.88); }
+:root[data-mode="plain"] .ti.ink { filter: none; }
 
 .achievements { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 .ach { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); background: var(--panel); font-size: 14px; }
@@ -391,6 +393,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
   .print-only { display: block; margin: 0 0 6pt; font-size: 9.5pt; }
   .chips { display: none; }
   .ti.mono, .tn-icon.mono { filter: brightness(0) opacity(.7); }
+  .ti.ink { filter: none; }
   .topo { break-inside: avoid; }
   :root { --bg: #fff; --panel: #fff; --bg-2: #fff; --line: #ccc; --text: #111; --dim: #555; --cyan: #0b5cab; --mag: #8a1f78; --green: #17803d; --yellow: #6b5500; --glow-c: none; --glow-m: none; --mono: Calibri, "Segoe UI", Arial, sans-serif; --pixel: var(--mono); --crt: var(--mono); }
   body { background: #fff; font-size: 10.5pt; line-height: 1.45; }
