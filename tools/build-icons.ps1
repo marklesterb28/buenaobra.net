@@ -31,6 +31,8 @@ $map = [ordered]@{
   'chorecast'    = 'lucide:list-checks|#f7e463'
   'phone'        = 'lucide:smartphone|#e8e8f0'
   'visitor'      = 'lucide:users-round|#e8e8f0'
+  'twitch'       = 'simple-icons:twitch|#a970ff'
+  'facebook'     = 'simple-icons:facebook|#4d8cff'
   # toolbox
   'okta'         = 'simple-icons:okta|#4d8cff'
   'duo'          = 'mdi:cellphone-key|#6bd425'

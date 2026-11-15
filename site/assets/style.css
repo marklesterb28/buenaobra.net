@@ -297,6 +297,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 .tags-list li { display: inline-flex; align-items: center; gap: 7px; transition: border-color .15s, transform .15s; }
 .tags-list li:hover { border-color: var(--cyan); transform: translateY(-1px); }
 .foot-credits { font-size: 11px; }
+.side-link { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.side-link .ti { width: 14px; height: 14px; }
 .toolbox { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
 .tbox { padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
 .tbox h4 { margin: 0 0 10px; font-size: 11px; color: var(--green); text-transform: uppercase; letter-spacing: .08em; }
