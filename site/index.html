@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lester Buenaobra · IT Support Engineer</title>
+  <meta name="description" content="Lester Buenaobra: IT support engineer with 15 years in tech support, MSPs and Microsoft 365. Lifelong tinkerer. Builder of things that run themselves.">
+  <meta name="theme-color" content="#07070d">
+  <meta property="og:title" content="Lester Buenaobra · IT Support Engineer">
+  <meta property="og:description" content="IT support engineer. Lifelong tinkerer. Builder of things that run themselves.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://buenaobra.net/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Press+Start+2P&family=VT323&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Boot sequence (decorative, skippable, shown once per session) -->
+  <div id="boot" class="boot" aria-hidden="true" hidden>
+    <pre id="boot-log"></pre>
+    <p class="boot-skip">press any key to skip</p>
+  </div>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="logo" href="#top"><span class="c-cyan">itinkerstuff</span><span class="c-dim">@</span><span class="c-mag">buenaobra</span><span class="c-dim">:~$</span><span class="cursor" aria-hidden="true">▌</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">./about</a>
+      <a href="#experience">./experience</a>
+      <a href="#cases">./cases</a>
+      <a href="#lab">./homelab</a>
+      <a href="#skills">./skills</a>
+      <a href="#contact">./contact</a>
+    </nav>
+    <button id="mode-toggle" class="mode-toggle" type="button" aria-pressed="false" title="Switch between neon and plain reading mode">plain mode</button>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="hero">
+      <div class="hero-avatar">
+        <div class="avatar-frame"><div class="sprite" data-sprite="avatar" data-scale="10" role="img" aria-label="Pixel-art avatar of Lester wearing a headset"></div></div>
+        <p class="status"><span class="dot" aria-hidden="true"></span> online · UTC+8 · open to work</p>
+      </div>
+      <div class="hero-text">
+        <p class="prompt"><span class="c-green">lester@buenaobra</span>:<span class="c-cyan">~</span>$ whoami</p>
+        <h1 class="name glitch" data-text="Lester Buenaobra">Lester Buenaobra</h1>
+        <p class="role">IT Support Engineer <span class="sep">//</span> MSP <span class="sep">//</span> Microsoft 365 &amp; Entra ID</p>
+        <p class="tagline"><span id="tagline">IT support engineer. Lifelong tinkerer. Builder of things that run themselves.</span></p>
+        <p class="print-only">marklester@buenaobra.net · linkedin.com/in/mark-lester-buenaobra-53095b312 · buenaobra.net · Metro Manila, PH (UTC+8) · open to remote &amp; relocation</p>
+        <ul class="chips" aria-label="Quick facts">
+          <li>📍 Metro Manila, PH</li>
+          <li>🌏 Remote · relocation (NZ first)</li>
+          <li>⏱ 15 yrs in tech support</li>
+        </ul>
+        <div class="cta">
+          <a class="btn btn-primary" href="#contact">[ hire me ]</a>
+          <button class="btn" type="button" data-action="print">[ save resume.pdf ]</button>
+          <a class="btn" href="https://www.linkedin.com/in/mark-lester-buenaobra-53095b312" rel="noopener" target="_blank">[ linkedin ↗ ]</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats" aria-label="Highlights">
+      <div class="stat"><span class="num">15</span><span class="lbl">years supporting users</span></div>
+      <div class="stat"><span class="num">26,000+</span><span class="lbl">lessons taught (ESL)</span></div>
+      <div class="stat"><span class="num">20</span><span class="lbl">analysts led as team lead</span></div>
+      <div class="stat"><span class="num">100%</span><span class="lbl">CSAT at Genie Health</span></div>
+      <div class="stat"><span class="num">#1</span><span class="lbl">weekly ticket leaderboard, regularly</span></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="block">
+      <h2 class="h"><span class="h-tag">01</span> cat about.md</h2>
+      <div class="about">
+        <p>I've spent 15 years on the other end of the line when technology stops working. I started in telecom support for <strong>Telstra, AT&amp;T and Verizon</strong>, taught English in more than <strong>26,000 online lessons</strong>, ran parts of an enterprise service desk for a global investment firm, and now work in <strong>managed services for US businesses</strong>.</p>
+        <p>Teaching gave me the skill I use most: <mark>active listening</mark>. Users often don't know what they actually need. You listen, ask the right questions, and find the real root cause. The fix is usually the easy part.</p>
+        <p>Off the clock I'm still at it. I run a Proxmox homelab managed as code, build my own PCs, once ran a triple-boot Hackintosh, and break things on purpose to learn how they work. My old gamer tag was <span class="c-cyan">itinkerstuff</span>, and it still fits.</p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="block">
+      <h2 class="h"><span class="h-tag">02</span> git log --career</h2>
+      <ol class="timeline">
+        <li class="job">
+          <div class="when">2025 → now</div>
+          <div class="what">
+            <h3>Helpdesk Engineer, End User Engineering</h3>
+            <p class="org">Chicago-based MSP/MSSP · via Kalutasan</p>
+            <ul>
+              <li>Weekend and after-hours coverage for an MSP/MSSP serving enterprise and private-equity clients. Often the only engineer on the queue.</li>
+              <li>Regularly at the top of the weekly team leaderboard: 50–100 tickets closed a week, ~30 on a busy day.</li>
+              <li>Onboarding and offboarding across many client tenants: M365 and line-of-business accounts, Partner Center licensing, encrypted credential delivery.</li>
+              <li>Email security in Mimecast; servers via LogicMonitor; endpoints via Kaseya VSA; credentials in Secret Server; ITSM in ServiceNow.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <div class="when">2025</div>
+          <div class="what">
+            <h3>MSP Engineer</h3>
+            <p class="org">Effective Consulting LLC · Miami, FL</p>
+            <ul>
+              <li>Remote support across Windows, macOS, iOS and Android with Datto RMM.</li>
+              <li>Microsoft 365 and Google Workspace administration in hybrid and cloud-only environments.</li>
+              <li>Helped with on-prem Windows Server to Entra ID migrations; supported Ruckus and Ubiquiti networks; AppRiver email protection.</li>
+              <li>Wrote and maintained client SOPs in IT Glue.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <div class="when">2024</div>
+          <div class="what">
+            <h3>Microsoft 365 Ambassador</h3>
+            <p class="org">Microsoft · via Upwork / GigPlus</p>
+            <ul>
+              <li>Guided Microsoft 365 Business trial customers to the right plan, through setup and domain integration, and introduced Copilot.</li>
+              <li>Fed customer insights back to Microsoft's product team.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <div class="when">2023 → 2024</div>
+          <div class="what">
+            <h3>IT Tech Support</h3>
+            <p class="org">Genie Health (virtual physical therapy) · via Remoworks</p>
+            <ul>
+              <li>Supported patients and staff by voice, chat and email: <strong>100% CSAT</strong>, ~20 tickets a day.</li>
+              <li>Built Jira Service Management templates and workflows that cut resolution time.</li>
+              <li>QA-tested app releases with DevOps; ran onboarding and offboarding; trained staff on new releases.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <div class="when">2021 → 2023</div>
+          <div class="what">
+            <h3>Senior Systems Engineer, Service Desk</h3>
+            <p class="org">Wellington Management · via Cognizant</p>
+            <p class="ladder" aria-label="Role progression">T1 <span>→</span> T2 <span>→</span> Queue Czar <span>→</span> Knowledge Master <span>→</span> Incident Manager <span>→</span> Team Lead</p>
+            <ul>
+              <li>Hybrid AD and Entra ID identity and access: provisioning, groups, shared mailboxes, distribution lists.</li>
+              <li>Rebuilt the knowledge base: removed outdated articles, recategorized everything, improved search.</li>
+              <li>Led a left-shift program that moved Directory Services work to the service desk. <a href="#case-leftshift">Read the case study ↓</a></li>
+              <li>Led a team of 20 analysts; supervised PowerShell automation; did root cause analysis as Incident Manager.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <div class="when">2011 → 2021</div>
+          <div class="what">
+            <h3>Technical Support Representative</h3>
+            <p class="org">Teleperformance · Teletech · VXI · AFNI: Telstra, AT&amp;T, Verizon</p>
+            <ul>
+              <li>Repeatedly recognized as Employee of the Month and CSAT top performer; promoted to SME within ~3 months.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <div class="when">2014 → 2019</div>
+          <div class="what">
+            <h3>Online ESL Teacher</h3>
+            <p class="org">51Talk</p>
+            <ul><li>26,000+ one-on-one lessons with top-tier ratings. Where I learned to explain anything to anyone.</li></ul>
+          </div>
+        </li>
+        <li class="job edu">
+          <div class="when">2007 → 2009</div>
+          <div class="what">
+            <h3>Communication Arts</h3>
+            <p class="org">University of the East, Caloocan</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="cases" class="block">
+      <h2 class="h"><span class="h-tag">03</span> ls ./case-studies</h2>
+      <div class="cases">
+        <article class="case" id="case-leftshift">
+          <p class="file">case_01_left-shift.log</p>
+          <h3>Shifting Directory Services work to the service desk</h3>
+          <dl>
+            <dt>problem</dt>
+            <dd>Access requests, such as for a network shared drive, were passed between teams. Slow, full of friction, and frustrating for users.</dd>
+            <dt>action</dt>
+            <dd>Designed and submitted ServiceNow stories for one end-to-end flow:
+              <ol class="flow">
+                <li>user requests access</li>
+                <li>manager validates path &amp; approves</li>
+                <li>AD group task auto-created</li>
+                <li>follow-up task: remote in &amp; map drive</li>
+              </ol>
+              with templated user messages at every step.</dd>
+            <dt>result</dt>
+            <dd>Almost no friction. The service desk took over the work of the entire Directory Services function, which made the desk more valuable to the client.</dd>
+          </dl>
+        </article>
+        <article class="case">
+          <p class="file">case_02_patience.log</p>
+          <h3>The patient who couldn't start their therapy</h3>
+          <dl>
+            <dt>situation</dt>
+            <dd>An elderly patient, in pain, not tech-savvy, and stuck on the app meant to guide their at-home physical therapy.</dd>
+            <dt>action</dt>
+            <dd>Stayed on the call as long as it took. Fixed every issue, then taught them step by step how to record and follow their own sessions.</dd>
+            <dt>result</dt>
+            <dd>They were emotional on the call and thanked me over and over. To them it was life-changing. That's the job.</dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- HOMELAB -->
+    <section id="lab" class="block">
+      <h2 class="h"><span class="h-tag">04</span> ssh homelab</h2>
+      <p class="lede">A small production environment I run at home, managed as code. I design the architecture, direct AI coding agents to build it, review every change, and operate it day to day.</p>
+      <div class="lab">
+        <pre class="diagram" aria-label="Homelab architecture diagram" tabindex="0">
+              <span class="c-dim">internet</span>
+                 │
+     ┌───────────┴───────────┐
+ <span class="c-mag">cloudflare tunnel</span>      <span class="c-mag">tailscale</span> <span class="c-dim">(private)</span>
+     └───────────┬───────────┘
+            <span class="c-cyan">[ caddy ]</span>  <span class="c-dim">reverse proxy · auto-HTTPS</span>
+                 │
+ ┌──────┬────────┼────────┬──────────┐
+ <span class="c-green">dns</span>    <span class="c-green">hub</span>      <span class="c-green">psa</span>      <span class="c-green">vault</span>     <span class="c-green">apps</span>
+ adguard forgejo itflow  vaultwarden chorecast
+         beszel
+         gatus ──► <span class="c-yellow">ntfy alerts</span>
+
+ <span class="c-dim">── proxmox VE · one service per VM ──</span>
+ <span class="c-dim">── ansible: baseline · packages · compose-sync ──</span></pre>
+        <ul class="stack" aria-label="Homelab stack">
+          <li>Proxmox VE</li><li>Ansible</li><li>Docker Compose</li><li>Caddy</li><li>Tailscale</li><li>Cloudflare Tunnel</li><li>AdGuard Home</li><li>Forgejo</li><li>Vaultwarden</li><li>ITFlow (PSA)</li><li>Gatus</li><li>ntfy</li><li>Beszel</li>
+        </ul>
+      </div>
+
+      <h3 class="sub">// side projects</h3>
+      <div class="projects">
+        <article class="proj">
+          <h4>ChoreCast</h4>
+          <p>Open-source, self-hosted family chore system. A FastAPI server, an Android TV app that sounds an alarm over the TV when a chore is overdue, and a phone app that locks until a parent approves. Kids can send photo proof.</p>
+          <p class="tags">FastAPI · Android · self-hosted</p>
+        </article>
+        <article class="proj">
+          <h4>agentwatch</h4>
+          <p>A read-only, animated terminal dashboard that shows in plain English what AI coding agents and their subagents are doing, so I can supervise automation as it runs.</p>
+          <p class="tags">terminal UI · AI agents · observability</p>
+        </article>
+        <article class="proj">
+          <h4>The triple-boot Hackintosh</h4>
+          <p>macOS, Windows and Linux on one hand-built PC, back when that meant hours of bootloaders and kexts. It's where I learned that the fastest way to understand something is to break it.</p>
+          <p class="tags">hardware · bootloaders · stubbornness</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="block">
+      <h2 class="h"><span class="h-tag">05</span> inventory --skills</h2>
+      <div class="skills">
+        <div class="tier">
+          <h3><span class="badge b-strong">STRONG</span> used every day</h3>
+          <ul class="tags-list">
+            <li>Microsoft 365</li><li>Exchange Online</li><li>Entra ID</li><li>Active Directory</li><li>Group Policy</li><li>Email security: Mimecast, AppRiver, SPF/DKIM/DMARC</li><li>Windows</li><li>macOS</li><li>ServiceNow</li><li>Jira Service Management</li><li>Autotask</li><li>Kaseya VSA</li><li>Datto RMM</li><li>LogicMonitor</li><li>IT Glue &amp; SOP writing</li><li>Onboarding / offboarding at scale</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <h3><span class="badge b-working">WORKING</span> hands-on, homelab-proven</h3>
+          <ul class="tags-list">
+            <li>Intune &amp; Autopilot</li><li>Linux</li><li>Docker / Compose</li><li>Proxmox</li><li>Caddy</li><li>DNS</li><li>Google Workspace</li><li>Ubiquiti / Ruckus</li><li>VMware · Citrix · Hyper-V · AVD</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <h3><span class="badge b-learning">LEARNING</span> leveling up now</h3>
+          <ul class="tags-list">
+            <li>PowerShell scripting</li><li>Networking</li><li>Ansible</li><li>Azure administration</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <h3><span class="badge b-people">PEOPLE</span> the part that's hard to teach</h3>
+          <ul class="tags-list">
+            <li>Active listening</li><li>Teaching &amp; training</li><li>Knowledge-base writing</li><li>Team leadership (20)</li><li>Calm with upset users</li><li>99 WPM</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub">// achievements</h3>
+      <ul class="achievements">
+        <li class="ach done"><span class="ach-icon" aria-hidden="true">★</span><span><strong>AZ-900</strong> Azure Fundamentals <em>unlocked 2024</em></span></li>
+        <li class="ach done"><span class="ach-icon" aria-hidden="true">★</span><span><strong>MS-900</strong> Microsoft 365 Fundamentals <em>unlocked 2023</em></span></li>
+        <li class="ach quest"><span class="ach-icon" aria-hidden="true">◇</span><span><strong>AZ-104</strong> Azure Administrator <em>quest in progress</em></span></li>
+        <li class="ach quest"><span class="ach-icon" aria-hidden="true">◇</span><span><strong>SC-300</strong> Identity &amp; Access Administrator <em>quest in progress</em></span></li>
+        <li class="ach quest"><span class="ach-icon" aria-hidden="true">◇</span><span><strong>Apple Device Support</strong> <em>quest in progress</em></span></li>
+      </ul>
+    </section>
+
+    <!-- PERSONAL -->
+    <section id="side" class="block">
+      <h2 class="h"><span class="h-tag">06</span> cat side-quests.txt</h2>
+      <div class="side">
+        <div class="moto"><div class="sprite" data-sprite="moto" data-scale="7" role="img" aria-label="Pixel-art motorcycle"></div></div>
+        <ul class="side-list">
+          <li><strong>Motorcycle traveler.</strong> Long rides are how I recharge.</li>
+          <li><strong>Ex-Twitch streamer.</strong> Streamed PC games and built a following for a while.</li>
+          <li><strong>PC FPS player.</strong> Still the best way to stress-test a build.</li>
+          <li><strong>PC builder.</strong> I'd always rather build it myself than buy prebuilt.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="block contact">
+      <h2 class="h"><span class="h-tag">07</span> ping lester</h2>
+      <p class="lede">Hiring for a remote or overseas sysadmin, cloud, or MSP role? I'd love to talk. <span class="c-dim">New Zealand is the dream, but I'm open to anywhere.</span></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="mailto:marklester@buenaobra.net">[ marklester@buenaobra.net ]</a>
+        <a class="btn" href="https://www.linkedin.com/in/mark-lester-buenaobra-53095b312" rel="noopener" target="_blank">[ linkedin ↗ ]</a>
+        <button class="btn" type="button" data-action="print">[ save resume.pdf ]</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p><span class="c-mag">Mabuhay!</span> 🇵🇭 · Designed by Lester, built with an AI pair · hosted on Cloudflare Pages</p>
+    <p class="c-dim">© 2026 Mark Lester Buenaobra · psst: press <kbd>`</kbd> or tap <span class="c-cyan">&gt;_</span> to open the terminal</p>
+  </footer>
+
+  <!-- Easter-egg terminal -->
+  <button id="term-toggle" class="term-toggle" type="button" aria-controls="term" aria-expanded="false" title="Open terminal">&gt;_</button>
+  <section id="term" class="term" aria-label="Interactive terminal" hidden>
+    <div class="term-bar"><span>lester@buenaobra: ~</span><button type="button" class="term-close" aria-label="Close terminal">×</button></div>
+    <div id="term-out" class="term-out" aria-live="polite"></div>
+    <form id="term-form" class="term-in" autocomplete="off">
+      <label for="term-input"><span class="c-green">lester@buenaobra</span>:<span class="c-cyan">~</span>$</label>
+      <input id="term-input" type="text" spellcheck="false" autocapitalize="off">
+    </form>
+  </section>
+</body>
+</html>
