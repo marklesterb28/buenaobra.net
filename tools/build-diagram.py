@@ -11,7 +11,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 OUT = Path(__file__).resolve().parent.parent / "site" / "assets" / "homelab.svg"
-W, H = 1800, 1290
+W, H = 1800, 1340
 
 # Palette and fonts match buenaobra.net
 BG, BG2, PANEL, LINE = "#141614", "#1c1e1c", "#232623", "#3d453d"
@@ -121,6 +121,11 @@ VMS = [
         ("ChoreCast", "household chores app"),
         "  own repo, Docker Compose",
     ], ()),
+    ("radio", "music for the family", [
+        ("SUB/WAVE", "24/7 radio with an AI DJ"),
+        "  plays the Navidrome library",
+        "  free LLM writes, local voice speaks",
+    ], ()),
 ]
 
 # ------------------------------------------------------------------ draw
@@ -131,7 +136,7 @@ add(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
     f'font-family="{MONO}" role="img" aria-labelledby="t d">')
 add('<title id="t">Lester\'s homelab network</title>'
     '<desc id="d">Cloudflare and Tailscale at the edge, an ISP router and one flat LAN, a Proxmox host '
-    'running a VM per role (dns, caddy, hub, psa, vault, apps) and a Windows desktop for media, '
+    'running a VM per role (dns, caddy, hub, psa, vault, apps, radio) and a Windows desktop for media, '
     'with single sign-on through Pocket ID and automation through Ansible, Renovate, Gatus, Beszel and ntfy.</desc>')
 add('<defs>'
     '<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">'
@@ -217,7 +222,7 @@ line([(330, ry + rh), (330, BACKBONE_Y)], stroke=NEON, sw=3)
 text(W - 60, BACKBONE_Y - 10, "home LAN · 1 Gbps", size=12, fill=LITE, anchor="end")
 
 # ---- Proxmox host with VM cards
-px, py, pw, ph = 40, 470, 1100, 560
+px, py, pw, ph = 40, 470, 1100, 610
 box(px, py, pw, ph, stroke=NEON, fill="#171a17", dash="8 5", sw=1.5)
 text(px + 18, py + 30, "pve", size=20, fill=NEON, weight=800)
 text(px + 70, py + 30, "Proxmox VE", size=14, fill=TEXT, weight=600)
@@ -230,20 +235,25 @@ placement = {
     "dns": (cols[0], py + 70, 170), "psa": (cols[0], py + 260, 170),
     "caddy": (cols[1], py + 70, 200), "vault": (cols[1], py + 290, 150),
     "hub": (cols[2], py + 70, 250), "apps": (cols[2], py + 335, 105),
+    "radio": (cols[0], py + 450, 135),
 }
 for name, meta, items, tags in VMS:
     x, y, h = placement[name]
     node(x, y, cw_, h, name, meta, items, tags)
 
-rtx, rty = px + 20, py + 455
-box(rtx, rty, pw - 40, 86, stroke=LINE, fill=BG2)
+# names box beside the radio card
+rtx, rty = cols[1], py + 450
+box(rtx, rty, pw - 40 - cw_ - gap, 135, stroke=LINE, fill=BG2)
 text(rtx + 16, rty + 26, "https://<service>.buenaobra.net", size=14, fill=MINT, weight=700)
-text(rtx + 316, rty + 26, "every name → caddy → service · one wildcard certificate", size=12, fill=DIM)
-text(rtx + 16, rty + 52, "›", size=13, fill=NEON, weight=700)
-text(rtx + 30, rty + 52, "admin UIs sit behind Pocket ID single sign-on", size=12)
-badge(rtx + 420, rty + 52, "SSO", NEON)
-text(rtx + 16, rty + 72, "›", size=13, fill=NEON, weight=700)
-text(rtx + 30, rty + 72, "names only resolve at home or over Tailscale; nothing is port-forwarded", size=12)
+for i, t in enumerate([
+    "every name → caddy → service · one wildcard certificate",
+    "admin UIs sit behind Pocket ID single sign-on",
+    "names only resolve at home or over Tailscale; nothing is port-forwarded",
+]):
+    yy = rty + 56 + i * 24
+    text(rtx + 16, yy, "›", size=13, fill=NEON, weight=700)
+    text(rtx + 30, yy, t, size=12)
+badge(rtx + 420, rty + 80, "SSO", NEON)
 
 # Tunnel: Cloudflare → psa (around the left edge)
 line([(cx + 340, cy + ch), (cx + 340, 316), (26, 316), (26, py + 345), (cols[0], py + 345)],
@@ -268,7 +278,7 @@ node(kx + 300, ky + 70, 270, 160, "WSL2", "Ubuntu + Docker", [
 node(kx + 20, ky + 240, 550, 72, "workstation", "Claude Code · agentwatch (session viewer) · infra repo", [], (TAILNET,))
 
 # ---- clients
-clx, cly, clw, clh = 1170, 830, 590, 200
+clx, cly, clw, clh = 1170, 830, 590, 250
 box(clx, cly, clw, clh, stroke=TS, fill="#171a17", dash="2 4", sw=1.5)
 text(clx + 18, cly + 30, "clients", size=20, fill=TS, weight=800)
 text(clx + 120, cly + 30, "at home on the LAN, away over Tailscale", size=13, fill=DIM)
@@ -279,16 +289,17 @@ for i, (d, apps) in enumerate([
     ("TV", "Jellyfin · music"),
     ("phones + tablet", "Jellyfin · music · browser"),
     ("browsers", "dashboard start page"),
+    ("radio players", "VLC · browser · the family's phones"),
 ]):
     y = cly + 66 + i * 40
     box(clx + 20, y - 22, clw - 40, 32, stroke=LINE, fill=BG2)
     text(clx + 34, y, d, size=13, fill=TEXT, weight=700)
     text(clx + 230, y, apps, size=12, fill=DIM)
-    if d != "browsers":
+    if d not in ("browsers", "radio players"):
         badge(clx + clw - 100, y, "tailnet", TS)
 
 # ---- bottom: request flow and automation
-fy = 1060
+fy = 1110
 box(40, fy, 1100, 190, stroke=LINE, fill=PANEL)
 text(58, fy + 30, "How a request gets in", size=15, fill=MINT, weight=700)
 steps = [
