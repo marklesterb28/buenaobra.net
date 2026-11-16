@@ -231,44 +231,12 @@
     <section id="lab" class="block">
       <h2 class="h"><span class="h-tag">04</span> ssh homelab</h2>
       <p class="lede">A small production environment I run at home, managed as code. I design the architecture, direct AI coding agents to build it, review every change, and operate it day to day.</p>
-      <figure class="topo" aria-label="Homelab architecture">
-        <div class="topo-edge">
-          <div class="tnode"><img class="tn-icon" src="assets/icons/cloudflare.svg" alt=""><div><b>Cloudflare</b><span>DNS · Pages · Tunnel · Access · email routing</span></div></div>
-          <div class="tnode"><img class="tn-icon mono" src="assets/icons/tailscale.svg" alt=""><div><b>Tailscale</b><span>private WireGuard mesh for my own devices</span></div></div>
-        </div>
-        <div class="topo-wires" aria-hidden="true">
-          <span class="wire w-pub"><span class="wire-lbl">tunnel · public PSA only</span></span>
-          <span class="wire w-priv"><span class="wire-lbl">private · everything else</span></span>
-        </div>
-        <div class="topo-zone">
-          <span class="zone-label">home lab</span>
-          <div class="topo-host">
-            <div class="host-head"><img class="tn-icon" src="assets/icons/proxmox.svg" alt=""><b>Proxmox VE</b><span>a VM per role · managed as code</span></div>
-            <div class="vms">
-              <div class="vm front"><h4>dns</h4><p><img class="ti" src="assets/icons/adguard.svg" alt="">AdGuard Home</p><small>names → Caddy · ad blocking</small></div>
-              <div class="vm front"><h4>proxy</h4><p><img class="ti" src="assets/icons/caddy.svg" alt="">Caddy</p><small>*.buenaobra.net · auto-HTTPS</small></div>
-              <div class="vm"><h4>hub</h4><p><img class="ti" src="assets/icons/forgejo.svg" alt="">Forgejo</p><p><img class="ti" src="assets/icons/ansible.svg" alt="">Ansible</p><p><img class="ti" src="assets/icons/gatus.svg" alt="">Gatus</p><p><img class="ti" src="assets/icons/ntfy.svg" alt="">ntfy</p><p><img class="ti" src="assets/icons/beszel.svg" alt="">Beszel</p></div>
-              <div class="vm"><h4>vault</h4><p><img class="ti mono" src="assets/icons/vaultwarden.svg" alt="">Vaultwarden</p><small>passwords</small></div>
-              <div class="vm"><h4>psa</h4><p><img class="ti mono" src="assets/icons/itflow.svg" alt="">ITFlow</p><p><img class="ti" src="assets/icons/cloudflare.svg" alt="">cloudflared</p><small>tickets · behind Access</small></div>
-              <div class="vm"><h4>apps</h4><p><img class="ti mono" src="assets/icons/chorecast.svg" alt="">ChoreCast</p><small>my own app</small></div>
-            </div>
-          </div>
-          <div class="topo-host desk">
-            <div class="host-head"><img class="tn-icon" src="assets/icons/windows.svg" alt=""><b>Desktop</b><span>Windows · media</span></div>
-            <div class="vms">
-              <div class="vm"><h4>media</h4><p><img class="ti" src="assets/icons/jellyfin.svg" alt="">Jellyfin</p><p><img class="ti" src="assets/icons/navidrome.svg" alt="">Navidrome</p></div>
-            </div>
-          </div>
-        </div>
-        <figcaption>
-          <ol class="flows">
-            <li class="fl f-priv"><span class="flow-name">remote access</span><span class="fs"><img class="ti mono" src="assets/icons/phone.svg" alt="">my phone</span><span class="fa">→</span><span class="fs"><img class="ti mono" src="assets/icons/tailscale.svg" alt="">Tailscale</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/caddy.svg" alt="">Caddy</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/jellyfin.svg" alt="">apps</span></li>
-            <li class="fl f-pub"><span class="flow-name">public PSA</span><span class="fs"><img class="ti mono" src="assets/icons/visitor.svg" alt="">client</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/cloudflare.svg" alt="">Tunnel + Access</span><span class="fa">→</span><span class="fs"><img class="ti mono" src="assets/icons/itflow.svg" alt="">ITFlow</span></li>
-            <li class="fl f-alert"><span class="flow-name">alerts</span><span class="fs"><img class="ti" src="assets/icons/gatus.svg" alt="">Gatus · Beszel · Proxmox</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/ntfy.svg" alt="">ntfy</span><span class="fa">→</span><span class="fs"><img class="ti mono" src="assets/icons/phone.svg" alt="">my phone</span></li>
-            <li class="fl f-code"><span class="flow-name">as code</span><span class="fs"><img class="ti" src="assets/icons/forgejo.svg" alt="">Forgejo</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/ansible.svg" alt="">Ansible</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/docker.svg" alt="">Compose on every VM</span></li>
-            <li class="fl f-site"><span class="flow-name">this site</span><span class="fs"><img class="ti mono" src="assets/icons/visitor.svg" alt="">you</span><span class="fa">→</span><span class="fs"><img class="ti" src="assets/icons/cloudflare.svg" alt="">Cloudflare Pages</span></li>
-          </ol>
-        </figcaption>
+      <figure class="netdiag">
+        <a href="assets/homelab.svg" target="_blank" rel="noopener" title="Open the full-size diagram">
+          <img src="assets/homelab.svg" width="1800" height="1290" loading="lazy" decoding="async"
+            alt="Homelab network diagram. Cloudflare (DNS, Pages, email routing, and a tunnel with Access in front of the PSA) and Tailscale (a WireGuard mesh for my own devices) sit at the edge. An ISP router feeds one flat 1 Gbps LAN. A Proxmox VE host runs a VM per role: dns with AdGuard Home; caddy, the reverse proxy with a wildcard certificate and forward auth; hub with Forgejo, Pocket ID, Tinyauth, Homepage, Gatus, ntfy, Beszel, Renovate and Ansible; psa with ITFlow and cloudflared; vault with Vaultwarden, reachable only over Tailscale; and apps with ChoreCast. A Windows desktop runs Jellyfin and Navidrome, plus WSL2 for ChoreCast Android builds. A request goes browser, AdGuard, Caddy, Tinyauth, Pocket ID passkey, then the service. Ansible, unattended-upgrades, Renovate, Gatus, Beszel and ntfy keep it running.">
+        </a>
+        <figcaption>Generated from code, like the rest of the lab. <a href="assets/homelab.svg" target="_blank" rel="noopener">Open full size ↗</a></figcaption>
       </figure>
       <ul class="stack" aria-label="Homelab stack">
         <li><img class="ti" src="assets/icons/proxmox.svg" alt="">Proxmox VE</li>
