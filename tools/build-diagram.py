@@ -124,7 +124,10 @@ VMS = [
 ]
 
 # ------------------------------------------------------------------ draw
-add(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
+# No fixed width/height: opened on its own the diagram scales to fit the
+# window; embedded, the <img> (or its CSS) sets the size.
+add(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+    f'preserveAspectRatio="xMidYMid meet" style="background:{BG}" '
     f'font-family="{MONO}" role="img" aria-labelledby="t d">')
 add('<title id="t">Lester\'s homelab network</title>'
     '<desc id="d">Cloudflare and Tailscale at the edge, an ISP router and one flat LAN, a Proxmox host '
