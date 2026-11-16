@@ -4,3 +4,13 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   X-Frame-Options: DENY
+
+# These change with the page, so browsers must check for a newer copy on
+# every visit (a cheap 304 when unchanged). Otherwise a new index.html can
+# load with a stale style.css for up to 4 hours.
+/assets/style.css
+  Cache-Control: public, max-age=0, must-revalidate
+/assets/main.js
+  Cache-Control: public, max-age=0, must-revalidate
+/assets/homelab.svg
+  Cache-Control: public, max-age=0, must-revalidate
