@@ -327,3 +327,10 @@ for i, (a, b) in enumerate([
 add("</svg>")
 OUT.write_text("\n".join(out), encoding="utf-8")
 print(f"wrote {OUT} ({OUT.stat().st_size // 1024} KB)")
+
+# The public homelab-showcase repo shows the same diagram. If it is checked
+# out next to this repo, keep its copy identical (then commit it there).
+SHOWCASE = OUT.parents[2].parent / "homelab-showcase" / "homelab.svg"
+if SHOWCASE.parent.is_dir():
+    SHOWCASE.write_bytes(OUT.read_bytes())
+    print(f"wrote {SHOWCASE}")
