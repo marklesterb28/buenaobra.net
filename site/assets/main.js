@@ -13,8 +13,8 @@
 
   /* ---------- Pixel sprites (rendered as crisp SVG) ---------- */
   const PAL = {
-    k: "#0b0b16", h: "#1d1b33", s: "#c68a5b", c: "#00e8ff", m: "#ff2bd6",
-    w: "#e8e8ff", y: "#f7e463", g: "#3dff8f",
+    k: "#050605", h: "#1a1f1a", s: "#c68a5b", c: "#00ff41", m: "#0b6b22",
+    w: "#e6ffe0", y: "#c8ffd4", g: "#00ff41",
   };
   const SPRITES = {
     avatar: [
@@ -76,6 +76,45 @@
   setMode(store.get("mode") === "plain" ? "plain" : "neon", false);
   toggle.addEventListener("click", () => setMode(root.dataset.mode === "plain" ? "neon" : "plain", true));
 
+  /* ---------- Digital rain (neon mode, motion allowed) ---------- */
+  (function rain() {
+    const cv = document.createElement("canvas");
+    cv.className = "rain"; cv.setAttribute("aria-hidden", "true");
+    document.body.prepend(cv);
+    const ctx = cv.getContext("2d");
+    const glyphs = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789:.=*+<>|";
+    const size = 16;
+    let drops = [], w = 0, h = 0, last = 0;
+    function fit() {
+      w = cv.width = window.innerWidth; h = cv.height = window.innerHeight;
+      const cols = Math.ceil(w / size);
+      drops = Array.from({ length: cols }, () => Math.floor(Math.random() * -h / size));
+      ctx.fillStyle = "#1c1e1c"; ctx.fillRect(0, 0, w, h);
+    }
+    function frame(t) {
+      requestAnimationFrame(frame);
+      if (document.hidden || root.dataset.mode === "plain" || t - last < 60) return;
+      last = t;
+      draw();
+    }
+    function draw() {
+      ctx.fillStyle = "rgba(28, 30, 28, .09)"; ctx.fillRect(0, 0, w, h);
+      ctx.font = `${size}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const y = drops[i] * size;
+        if (y > 0) {
+          ctx.fillStyle = Math.random() < .08 ? "#c8ffd4" : "#00ff41";
+          ctx.fillText(glyphs[(Math.random() * glyphs.length) | 0], i * size, y);
+        }
+        drops[i] = y > h && Math.random() > .975 ? 0 : drops[i] + 1;
+      }
+    }
+    const still = () => { for (let n = 0; n < 80; n++) draw(); };  // a static frame of rain, no motion
+    fit();
+    if (reduced) { still(); window.addEventListener("resize", () => { fit(); still(); }); }
+    else { window.addEventListener("resize", fit); requestAnimationFrame(frame); }
+  })();
+
   /* ---------- Print / save resume ---------- */
   document.querySelectorAll('[data-action="print"]').forEach((b) => b.addEventListener("click", () => window.print()));
 
@@ -99,7 +138,7 @@
   const BOOT = [
     "BUENAOBRA BIOS v2.0.26  (c) itinkerstuff",
     "CPU: tinkerer-class, 15 yrs uptime ........ OK",
-    "MEM: 26,000 lessons cached ................ OK",
+    "MEM: 100% CSAT across 15 yrs ............. OK",
     "NET: UTC+8 → US hours, remote link ........ OK",
     "Loading modules: m365 entra ad intune mimecast servicenow",
     "Mounting /homelab (proxmox · ansible · caddy) ... OK",
