@@ -125,7 +125,8 @@ VMS = [
         ("SUB/WAVE", "24/7 radio with an AI DJ"),
         "  plays the Navidrome library",
         "  free LLM writes, local voice speaks",
-    ], ()),
+        ("cloudflared", "→ public, admin behind Access"),
+    ], (TUNNEL,)),
 ]
 
 # ------------------------------------------------------------------ draw
@@ -170,6 +171,7 @@ for i, s in enumerate([
     "Email Routing → my inbox",
     "*.buenaobra.net → caddy,",
     "  reachable only over Tailscale",
+    "radio: Tunnel → radio, public",
 ]):
     text(cx + 16, cy + 78 + i * 19, s, size=12, fill=DIM if s.startswith("  ") else TEXT)
 text(cx + 300, cy + 56, "PSA site", size=14, fill=TEXT, weight=700)
@@ -235,7 +237,7 @@ placement = {
     "dns": (cols[0], py + 70, 170), "psa": (cols[0], py + 260, 170),
     "caddy": (cols[1], py + 70, 200), "vault": (cols[1], py + 290, 150),
     "hub": (cols[2], py + 70, 250), "apps": (cols[2], py + 335, 105),
-    "radio": (cols[0], py + 450, 135),
+    "radio": (cols[0], py + 450, 150),
 }
 for name, meta, items, tags in VMS:
     x, y, h = placement[name]
@@ -243,12 +245,13 @@ for name, meta, items, tags in VMS:
 
 # names box beside the radio card
 rtx, rty = cols[1], py + 450
-box(rtx, rty, pw - 40 - cw_ - gap, 135, stroke=LINE, fill=BG2)
+box(rtx, rty, pw - 40 - cw_ - gap, 150, stroke=LINE, fill=BG2)
 text(rtx + 16, rty + 26, "https://<service>.buenaobra.net", size=14, fill=MINT, weight=700)
 for i, t in enumerate([
     "every name → caddy → service · one wildcard certificate",
     "admin UIs sit behind Pocket ID single sign-on",
-    "names only resolve at home or over Tailscale; nothing is port-forwarded",
+    "nothing is port-forwarded; names resolve at home or over Tailscale",
+    "only the PSA and the radio are public, through Cloudflare Tunnels",
 ]):
     yy = rty + 56 + i * 24
     text(rtx + 16, yy, "›", size=13, fill=NEON, weight=700)
@@ -258,6 +261,7 @@ badge(rtx + 420, rty + 80, "SSO", NEON)
 # Tunnel: Cloudflare → psa (around the left edge)
 line([(cx + 340, cy + ch), (cx + 340, 316), (26, 316), (26, py + 345), (cols[0], py + 345)],
      stroke=CF, sw=2, dash="7 5")
+line([(26, py + 345), (26, py + 525), (cols[0], py + 525)], stroke=CF, sw=2, dash="7 5")  # → radio
 
 # ---- desktop
 kx, ky, kw, kh = 1170, 470, 590, 330
