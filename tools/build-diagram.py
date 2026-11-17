@@ -89,7 +89,7 @@ VMS = [
         ("Beszel agent", "metrics"),
     ], (TAILNET,)),
     ("caddy", "the front door", [
-        ("Caddy", "reverse proxy, HTTPS"),
+        ("Traefik", "reverse proxy, HTTPS"),
         "  wildcard cert, Let's Encrypt DNS-01",
         "  forward_auth → Tinyauth",
         "  LAN + tailnet listener",
@@ -309,7 +309,7 @@ text(58, fy + 30, "How a request gets in", size=15, fill=MINT, weight=700)
 steps = [
     ("browser", "https://<svc>…"),
     ("AdGuard", "name → caddy"),
-    ("Caddy", "TLS, routing"),
+    ("Traefik", "TLS, routing"),
     ("Tinyauth", "signed in?"),
     ("Pocket ID", "passkey"),
     ("service", "dashboard, etc."),
