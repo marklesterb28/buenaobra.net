@@ -473,3 +473,14 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
   :root[data-mode="plain"] .headshot { width: 140px; height: 140px; }
 }
 @media print { .headshot { display: none !important; } }
+
+/* Non-IT roles: collapsed by default, years stay visible in the date column */
+.gig summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.gig summary::-webkit-details-marker { display: none; }
+.gig summary h3 { display: inline; }
+.gig-hint { font-size: 12.5px; color: var(--dim); }
+.gig summary:hover .gig-hint { color: var(--cyan); }
+.gig details[open] .gig-hint { display: none; }
+.gig details[open] summary { margin-bottom: 2px; }
+.gig summary .org { flex-basis: 100%; margin: 2px 0 0; }
+.gig details[open] summary .org { margin-bottom: 8px; }
