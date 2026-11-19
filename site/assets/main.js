@@ -206,7 +206,7 @@
     about: () => { go("about"); return "→ scrolling to about.md"; },
     experience: () => { go("experience"); return "→ git log --career"; },
     skills: () => "STRONG   m365 · exchange · entra id · ad/gpo · mimecast · macos · servicenow · rmm\nWORKING  intune · linux · docker · proxmox · traefik · caddy · dns\nLEARNING powershell · networking · ansible · azure",
-    certs: () => "★ AZ-900  ★ MS-900\n◇ AZ-104 (in progress)  ◇ SC-300 (in progress)  ◇ Apple Device Support (in progress)",
+    certs: () => "★ Datto RMM (Kaseya Certified Technician)  ★ AZ-900  ★ MS-900\n◇ AZ-104 (in progress)  ◇ SC-300 (in progress)  ◇ Apple Device Support (in progress)",
     homelab: () => { go("lab"); return "proxmox → adguard → traefik → pocket id sso → forgejo · vaultwarden · itflow · gatus → ntfy\nmanaged with ansible. → scrolling to homelab"; },
     contact: () => 'email    <a href="mailto:marklester@buenaobra.net">marklester@buenaobra.net</a>\nlinkedin <a href="https://www.linkedin.com/in/mark-lester-buenaobra-53095b312" target="_blank" rel="noopener">mark-lester-buenaobra</a>',
     resume: () => { setTimeout(() => { location.href = "resume.pdf"; }, 100); return "→ opening resume.pdf"; },
