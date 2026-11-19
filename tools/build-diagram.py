@@ -106,7 +106,7 @@ VMS = [
         ("Renovate", "weekly update PRs"),
         ("Ansible", "config + patching"),
     ], (TAILNET,)),
-    ("psa", "my MSP practice", [
+    ("psa", "PSA and ticketing lab", [
         ("ITFlow", "PSA, tickets, invoices"),
         "  Apache + MariaDB",
         ("cloudflared", "→ public PSA site"),

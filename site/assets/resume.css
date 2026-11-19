@@ -1,0 +1,73 @@
+/* Two-page resume. Plain, print-first, system fonts so the PDF text stays ATS-readable. */
+:root {
+  --ink: #1a1a1a;
+  --dim: #555;
+  --rule: #c9cfc9;
+  --accent: #17663a;
+  --paper: #fff;
+  --desk: #e7eae7;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--desk); }
+body {
+  margin: 0; padding: 0 16px 40px;
+  background: var(--desk); color: var(--ink);
+  font: 10pt/1.38 Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+
+.bar { max-width: 210mm; margin: 0 auto; padding: 14px 0; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+.bar a:hover { text-decoration: underline; }
+.btn { background: var(--accent); color: #fff; padding: 7px 14px; border-radius: 4px; font-weight: 600; }
+
+.page { max-width: 210mm; margin: 0 auto; background: var(--paper); padding: 14mm 15mm; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+
+.head { border-bottom: 2px solid var(--accent); padding-bottom: 7pt; margin-bottom: 4pt; }
+h1 { margin: 0; font-size: 21pt; line-height: 1.1; letter-spacing: .01em; }
+.title { margin: 2pt 0 4pt; font-size: 11.5pt; color: var(--accent); font-weight: 600; }
+.contact { margin: 0; font-size: 9.2pt; color: var(--dim); }
+.contact > * + *::before { content: "·"; margin: 0 6px; color: var(--rule); }
+
+section { margin-top: 9pt; }
+h2 {
+  margin: 0 0 4pt; padding-bottom: 2pt; border-bottom: 1px solid var(--rule);
+  font-size: 10.5pt; text-transform: uppercase; letter-spacing: .09em; color: var(--accent);
+  break-after: avoid;
+}
+p { margin: 0; }
+ul { margin: 2pt 0 0; padding-left: 14pt; }
+li { margin: 1.2pt 0; }
+
+.job { margin-top: 6pt; break-inside: avoid; }
+.jh { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+h3 { margin: 0; font-size: 10.6pt; }
+.when { flex: none; font-size: 9.5pt; color: var(--dim); font-weight: 600; }
+.org { font-size: 9.6pt; color: var(--dim); font-style: italic; }
+.ladder { font-size: 9.3pt; color: var(--accent); margin-top: 1pt; }
+
+.keep { break-inside: avoid; }
+.skills { display: grid; grid-template-columns: 38mm 1fr; gap: 2pt 10pt; margin: 0; }
+.skills dt { font-weight: 700; }
+.skills dd { margin: 0; }
+
+.two { display: grid; grid-template-columns: 1.25fr 1fr; gap: 0 18pt; }
+.plain { list-style: none; padding: 0; }
+.stints { list-style: none; padding: 0; margin: 2pt 0 3pt; max-width: 110mm; font-size: 9.5pt; }
+.stints li { display: flex; justify-content: space-between; gap: 12px; margin: 0; }
+.stints li span:last-child { color: var(--dim); }
+h2.mt { margin-top: 9pt; }
+
+@page { size: A4; margin: 12mm 13mm; }
+@media print {
+  html, body { background: #fff; }
+  body { padding: 0; }
+  .bar { display: none; }
+  .page { max-width: none; padding: 0; box-shadow: none; }
+}
+@media (max-width: 640px) {
+  .page { padding: 20px 16px; }
+  .jh { flex-direction: column; gap: 0; }
+  .skills, .two { grid-template-columns: 1fr; }
+  .skills dd { margin-bottom: 4pt; }
+}

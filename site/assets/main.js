@@ -73,7 +73,9 @@
     toggle.textContent = plain ? "neon mode" : "plain mode";
     if (save) store.set("mode", mode);
   }
-  setMode(store.get("mode") === "plain" ? "plain" : "neon", false);
+  // ?mode=plain (the link on the PDF resume) opens the professional view without changing the saved choice.
+  const asked = new URLSearchParams(location.search).get("mode");
+  setMode(asked === "plain" || asked === "neon" ? asked : store.get("mode") === "plain" ? "plain" : "neon", false);
   toggle.addEventListener("click", () => setMode(root.dataset.mode === "plain" ? "neon" : "plain", true));
 
   /* ---------- Digital rain (neon mode, motion allowed) ---------- */
@@ -115,7 +117,7 @@
     else { window.addEventListener("resize", fit); requestAnimationFrame(frame); }
   })();
 
-  /* ---------- Print / save resume ---------- */
+  /* ---------- Print (Ctrl+P still prints the page; the resume is resume.pdf) ---------- */
   document.querySelectorAll('[data-action="print"]').forEach((b) => b.addEventListener("click", () => window.print()));
 
   /* ---------- Typing tagline ---------- */
@@ -136,12 +138,12 @@
   const boot = document.getElementById("boot");
   const bootLog = document.getElementById("boot-log");
   const BOOT = [
-    "BUENAOBRA BIOS v2.0.26  (c) itinkerstuff",
-    "CPU: tinkerer-class, 15 yrs uptime ........ OK",
-    "MEM: 100% CSAT across 15 yrs ............. OK",
+    "BUENAOBRA BIOS v2.0.26  (c) Mark Lester Buenaobra",
+    "CPU: tinkerer-class, 15 yrs supporting users  OK",
+    "MEM: 100% CSAT, telco + Genie Health ....... OK",
     "NET: UTC+8 → US hours, remote link ........ OK",
     "Loading modules: m365 entra ad intune mimecast servicenow",
-    "Mounting /homelab (proxmox · ansible · caddy) ... OK",
+    "Mounting /homelab (proxmox · ansible · traefik) . OK",
     "",
     "Mabuhay! Welcome to buenaobra.net",
   ];
@@ -194,25 +196,25 @@
       "  certs       achievements",
       "  homelab     what runs at home",
       "  contact     how to reach me",
-      "  resume      save resume as PDF",
+      "  resume      download the 2-page resume (PDF)",
       "  neofetch    system info",
       "  plain       toggle plain mode",
       "  clear       clear screen",
       "  exit        close terminal",
     ].join("\n"),
-    whoami: () => "Lester Buenaobra: IT support engineer, MSP, Microsoft 365 & Entra ID.\nLifelong tinkerer. Builder of things that run themselves.",
+    whoami: () => "Mark Lester Buenaobra: IT support engineer, MSP helpdesk, Microsoft 365 & Entra ID.\nLifelong tinkerer. Builder of things that run themselves.",
     about: () => { go("about"); return "→ scrolling to about.md"; },
     experience: () => { go("experience"); return "→ git log --career"; },
-    skills: () => "STRONG   m365 · exchange · entra id · ad/gpo · mimecast · macos · servicenow · rmm\nWORKING  intune · linux · docker · proxmox · caddy · dns\nLEARNING powershell · networking · ansible · azure",
+    skills: () => "STRONG   m365 · exchange · entra id · ad/gpo · mimecast · macos · servicenow · rmm\nWORKING  intune · linux · docker · proxmox · traefik · caddy · dns\nLEARNING powershell · networking · ansible · azure",
     certs: () => "★ AZ-900  ★ MS-900\n◇ AZ-104 (in progress)  ◇ SC-300 (in progress)  ◇ Apple Device Support (in progress)",
-    homelab: () => { go("lab"); return "proxmox → caddy → adguard · forgejo · vaultwarden · itflow · gatus → ntfy\nmanaged with ansible. → scrolling to homelab"; },
+    homelab: () => { go("lab"); return "proxmox → adguard → traefik → pocket id sso → forgejo · vaultwarden · itflow · gatus → ntfy\nmanaged with ansible. → scrolling to homelab"; },
     contact: () => 'email    <a href="mailto:marklester@buenaobra.net">marklester@buenaobra.net</a>\nlinkedin <a href="https://www.linkedin.com/in/mark-lester-buenaobra-53095b312" target="_blank" rel="noopener">mark-lester-buenaobra</a>',
-    resume: () => { setTimeout(() => window.print(), 100); return "opening print dialog… choose 'Save as PDF'"; },
+    resume: () => { setTimeout(() => { location.href = "resume.pdf"; }, 100); return "→ opening resume.pdf"; },
     neofetch: () => [
-      '<span class="c-cyan">   ▄▄▄▄▄▄▄   </span>  <span class="c-green">lester</span>@<span class="c-green">buenaobra</span>',
+      '<span class="c-cyan">   ▄▄▄▄▄▄▄   </span>  <span class="c-green">marklester</span>@<span class="c-green">buenaobra.net</span>',
       '<span class="c-cyan">  █ ▀▄▄▄▀ █  </span>  ----------------',
       '<span class="c-cyan">  █ █▄▄▄█ █  </span>  OS: Human 1.0 (Filipino edition)',
-      '<span class="c-cyan">  █▄▄▄▄▄▄▄█  </span>  Uptime: 15 years in tech support',
+      '<span class="c-cyan">  █▄▄▄▄▄▄▄█  </span>  Uptime: 15 years supporting users',
       '<span class="c-cyan">    ▀▀ ▀▀    </span>  Shell: active-listening',
       "               Location: Metro Manila, UTC+8",
       "               Packages: m365, entra, ad, intune, proxmox",
@@ -221,17 +223,17 @@
     plain: () => { setMode(root.dataset.mode === "plain" ? "neon" : "plain", true); return "mode toggled."; },
     clear: () => { out.innerHTML = ""; return null; },
     exit: () => { closeTerm(); return null; },
-    sudo: (args) => args.join(" ") === "hire-me" || args.join(" ") === "hire lester"
+    sudo: (args) => args.join(" ") === "hire-me" || args.join(" ") === "hire marklester" || args.join(" ") === "hire lester"
       ? '[sudo] password for recruiter: ********\naccess granted. → <a href="mailto:marklester@buenaobra.net">marklester@buenaobra.net</a>'
-      : "lester is not in the sudoers file. This incident will be reported. (try: sudo hire-me)",
+      : "marklester is not in the sudoers file. This incident will be reported. (try: sudo hire-me)",
     mabuhay: () => "Mabuhay! 🇵🇭 Salamat sa pagbisita.",
-    ls: () => "about.md  career.log  case-studies/  homelab/  skills.txt  side-quests.txt",
+    ls: () => "about.md  career.log  case-studies/  homelab/  skills.txt  side-quests.txt  resume.pdf",
     rm: () => "nice try. 🙂",
   };
 
   function run(raw) {
     const line = raw.trim();
-    print(`<span class="c-green">lester@buenaobra</span>:<span class="c-cyan">~</span>$ ${esc(line)}`);
+    print(`<span class="c-green">marklester@buenaobra.net</span>:<span class="c-cyan">~</span>$ ${esc(line)}`);
     if (!line) return;
     history.push(line); hIdx = history.length;
     const [cmd, ...args] = line.split(/\s+/);
