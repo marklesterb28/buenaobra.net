@@ -267,6 +267,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 .ach { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); background: var(--panel); font-size: 14px; }
 .ach em { display: block; font-style: normal; font-size: 12px; color: var(--dim); }
 .ach-icon { font-size: 20px; width: 28px; text-align: center; }
+.ach a.cert { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+.ach a.cert:hover { color: var(--cyan); text-decoration-style: solid; }
 .ach.done { border-color: color-mix(in srgb, var(--yellow) 50%, var(--line)); }
 .ach.done .ach-icon { color: var(--yellow); text-shadow: 0 0 10px rgba(0,255,65,.6); }
 .ach.quest .ach-icon { color: var(--cyan); }
