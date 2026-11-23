@@ -295,6 +295,22 @@
 
       <h3 class="sub"><span class="v-neon">// side projects</span><span class="v-plain">Side projects</span></h3>
       <div class="projects">
+        <article class="proj feature">
+          <a class="shot" href="assets/glitchwall-themes.jpg" target="_blank" rel="noopener" title="Open the full-size theme grid">
+            <img src="assets/glitchwall-themes.jpg" width="1200" height="950" loading="lazy" decoding="async"
+              alt="A grid of 19 glitchwall themes, each showing live tool-call cards from made-up demo sessions: phosphor, drafting, newsprint, nightprint, neon, fieldops, duplicator, sleeve, matrix, amber, synthwave, msdos, bsod, cyanotype, notebook, oracle, orb, scope and chalkboard.">
+          </a>
+          <div class="body">
+            <h4>glitchwall <span class="pstat">in development</span></h4>
+            <p>A local-only live desktop wallpaper that shows what a coding agent (Claude Code) is doing as it works. Each tool call appears as a card the moment it runs, and secrets are masked before anything reaches the screen. Built to be safe on stream, with a pause switch that blanks everything at once.</p>
+            <ul class="facts">
+              <li>Native Windows renderer in Rust with Direct2D and DirectWrite, one window per screen behind the desktop icons. It cut CPU from 34% of one core to 6.5% and memory from 699 MB to 153 MB, about a fifth of each.</li>
+              <li>19 themes and 27 backgrounds, all 18 theme backgrounds ported natively. Frame rates of 1 to 30 fps per background, 60 only during card transitions, and it sleeps while the screen is covered, fullscreen or locked.</li>
+              <li>Python feed (standard library only) with redaction and access checks, a canvas web renderer for OBS, macOS and Linux, a settings window, multi-monitor support and display scaling.</li>
+            </ul>
+            <p class="tags">Python · Rust · Direct2D · DirectWrite · JavaScript canvas · WebView2 · built Nov 2026</p>
+          </div>
+        </article>
         <article class="proj">
           <h4>ChoreCast</h4>
           <p>Open-source, self-hosted family chore system. A FastAPI server, an Android TV app that sounds an alarm over the TV when a chore is overdue, and a phone app that locks until a parent approves. Kids can send photo proof.</p>
